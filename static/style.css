@@ -1,0 +1,232 @@
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #34495e;
+  --background-color: #ecf0f1;
+  --text-color: #333;
+  --input-background: #f8f9fa;
+  --input-border: #ced4da;
+
+  --risk-low-color: #27ae60;
+  --risk-moderate-color: #f39c12;
+  --risk-high-color: #e74c3c;
+  --risk-extreme-color: #c0392b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", "Arial", sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 10px;
+}
+
+.prediction-section {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 30px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  align-items: start;
+}
+
+.info-panel {
+  position: sticky;
+  top: 20px;
+}
+
+.risk-guide {
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  padding: 15px;
+}
+
+.risk-guide h3 {
+  font-size: 0.9rem;
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.risk-guide ul {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  gap: 8px;
+  padding: 0;
+}
+
+.risk-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: white;
+  font-size: 0.8rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.risk-indicator.risk-low {
+  background-color: var(--risk-low-color);
+}
+
+.risk-indicator.risk-moderate {
+  background-color: var(--risk-moderate-color);
+}
+
+.risk-indicator.risk-high {
+  background-color: var(--risk-high-color);
+}
+
+.risk-indicator.risk-extreme {
+  background-color: var(--risk-extreme-color);
+}
+
+.input-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.input-group {
+  position: relative;
+}
+
+.input-group label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.input-range {
+  font-size: 0.8rem;
+  color: #6c757d;
+  font-weight: 400;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container input {
+  width: 100%;
+  padding: 12px 50px 12px 15px;
+  border: 2px solid var(--input-border);
+  border-radius: 50px;
+  background-color: var(--input-background);
+  transition: all 0.3s ease;
+}
+
+.input-container input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(44, 62, 80, 0.1);
+}
+
+.input-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--secondary-color);
+  opacity: 0.6;
+}
+
+.submit-container {
+  grid-column: 1 / -1;
+  margin-top: 20px;
+}
+
+.btn-predict {
+  width: 100%;
+  padding: 15px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.btn-predict:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-predict i {
+  font-size: 1.2rem;
+}
+
+.prediction-result {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.risk-level {
+  margin-top: 10px;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+footer {
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .prediction-section {
+    grid-template-columns: 1fr;
+  }
+
+  .info-panel {
+    position: static;
+    margin-bottom: 20px;
+  }
+
+  .input-wrapper {
+    grid-template-columns: 1fr;
+  }
+}

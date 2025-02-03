@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forest Fire Risk Assessment</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Forest Fire Risk Assessment</h1>
+        <p>Advanced Predictive Model for Fire Potential</p>
+      </header>
+
+      <main class="prediction-section">
+        <div class="info-panel">
+          <h2>About the Model</h2>
+          <p>
+            Our Forest Fire Weather Index (FWI) prediction model analyzes
+            multiple environmental factors to assess the potential risk of
+            forest fires.
+          </p>
+          <div class="risk-guide">
+            <h3>Risk Interpretation</h3>
+            <ul>
+              <li>
+                <span class="risk-indicator risk-low">0-30: Low Risk</span>
+              </li>
+              <li>
+                <span class="risk-indicator risk-moderate"
+                  >31-60: Moderate Risk</span
+                >
+              </li>
+              <li>
+                <span class="risk-indicator risk-high">61-80: High Risk</span>
+              </li>
+              <li>
+                <span class="risk-indicator risk-extreme"
+                  >81-100: Extreme Risk</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="prediction-form">
+          <form action="{{ url_for('predict_datapoint') }}" method="post">
+            <div class="input-wrapper">
+              <div class="input-group">
+                <label for="Temperature">
+                  Temperature (°C)
+                  <span class="input-range">Range: -10 to 50</span>
+                </label>
+                <div class="input-container">
+                  <input
+                    type="number"
+                    id="Temperature"
+                    name="Temperature"
+                    min="-10"
+                    max="50"
+                    required
+                    placeholder="Enter temperature"
+                  />
+                  <div class="input-icon">
+                    <i class="fas fa-thermometer-half"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="RH">
+                  Relative Humidity (%)
+                  <span class="input-range">Range: 0 to 100</span>
+                </label>
+                <div class="input-container">
+                  <input
+                    type="number"
+                    id="RH"
+                    name="RH"
+                    min="0"
+                    max="100"
+                    required
+                    placeholder="Enter humidity"
+                  />
+                  <div class="input-icon">
+                    <i class="fas fa-tint"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="Ws">
+                  Wind Speed (km/h)
+                  <span class="input-range">Range: 0 to 100</span>
+                </label>
+                <div class="input-container">
+                  <input
+                    type="number"
+                    id="Ws"
+                    name="Ws"
+                    min="0"
+                    max="100"
+                    required
+                    placeholder="Enter wind speed"
+                  />
+                  <div class="input-icon">
+                    <i class="fas fa-wind"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="Rain">
+                  Rainfall (mm)
+                  <span class="input-range">Range: 0 to 50</span>
+                </label>
+                <div class="input-container">
+                  <input
+                    type="number"
+                    id="Rain"
+                    name="Rain"
+                    step="0.1"
+                    min="0"
+                    max="50"
+                    required
+                    placeholder="Enter rainfall"
+                  />
+                  <div class="input-icon">
+                    <i class="fas fa-cloud-rain"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="FFMC">
+                  Fine Fuel Moisture Code
+                  <span class="input-range">Range: 0 to 100</span>
+                </label>
+                <div class="input-container">
+                  <input
+                    type="number"
+                    id="FFMC"
+                    name="FFMC"
+                    min="0"
+                    max="100"
+                    required
+                    placeholder="Enter FFMC"
+                  />
+                  <div class="input-icon">
+                    <i class="fas fa-leaf"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="DMC">
+                  Duff Moisture Code
+                  <span class="input-range">Range: 0 to 150</span>
+                </label>
+                <div class="input-container">
+                  <input
+                    type="number"
+                    id="DMC"
+                    name="DMC"
+                    min="0"
+                    max="150"
+                    required
+                    placeholder="Enter DMC"
+                  />
+                  <div class="input-icon">
+                    <i class="fas fa-tree"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="input-group">
+                <label for="Classes">
+                  Fire Class (0 or 1)
+                  <span class="input-range">Range: 0 or 1</span>
+                </label>
+                <div class="input-container">
+                  <input
+                    type="number"
+                    id="Classes"
+                    name="Classes"
+                    min="0"
+                    max="1"
+                    required
+                    placeholder="e.g., 1 (0 = No Fire, 1 = Fire)"
+                  />
+                  <div class="input-icon">
+                    <i class="fas fa-fire"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="ISI">
+                  Initial Spread Index
+                  <span class="input-range">Range: 0 to 50</span>
+                </label>
+                <div class="input-container">
+                  <input
+                    type="number"
+                    id="ISI"
+                    name="ISI"
+                    min="0"
+                    max="50"
+                    required
+                    placeholder="Enter ISI"
+                  />
+                  <div class="input-icon">
+                    <i class="fas fa-fire"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="Region">
+                  Region
+                  <span class="input-range">Range: 1 to 5</span>
+                </label>
+                <div class="input-container">
+                  <input
+                    type="number"
+                    id="Region"
+                    name="Region"
+                    min="1"
+                    max="5"
+                    required
+                    placeholder="Enter region"
+                  />
+                  <div class="input-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="submit-container">
+              <button type="submit" class="btn-predict">
+                <span>Assess Fire Risk</span>
+                <i class="fas fa-fire-alt"></i>
+              </button>
+            </div>
+          </form>
+
+          <div class="prediction-result">
+            <h3>Prediction Result</h3>
+            <div id="resultDisplay" class="result-display">
+              <p>
+                Forest Fire Weather Index:
+                <span id="fwiScore">{{ results }}</span>
+              </p>
+              <div id="riskLevel" class="risk-level"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer>
+        <p>
+          © 2025 Made by
+          <a
+            href="https://www.linkedin.com/in/shantanu-kumar-s34/"
+            target="_blank"
+            class="linkedin-link"
+          >
+            shantanu-kumar
+          </a>
+          | Powered by Machine Learning
+        </p>
+      </footer>
+
+      <style>
+        .linkedin-link {
+          color: pink; /* Change to white if you prefer */
+          text-decoration: none; /* Remove underline */
+        }
+
+        .linkedin-link:hover {
+          color: #ff69b4; /* Light pink on hover, or change to your preferred shade */
+        }
+      </style>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const resultScore = parseFloat("{{ results}}");
+        const resultDisplay = document.getElementById("resultDisplay");
+        const riskLevel = document.getElementById("riskLevel");
+
+        if (!isNaN(resultScore)) {
+          let riskCategory = "";
+          let riskColor = "";
+
+          if (resultScore <= 30) {
+            riskCategory = "Low Risk";
+            riskColor = "risk-low";
+          } else if (resultScore <= 60) {
+            riskCategory = "Moderate Risk";
+            riskColor = "risk-moderate";
+          } else if (resultScore <= 80) {
+            riskCategory = "High Risk";
+            riskColor = "risk-high";
+          } else {
+            riskCategory = "Extreme Risk";
+            riskColor = "risk-extreme";
+          }
+
+          riskLevel.textContent = riskCategory;
+          riskLevel.className = `risk-level ${riskColor}`;
+        }
+      });
+    </script>
+  </body>
+</html>
